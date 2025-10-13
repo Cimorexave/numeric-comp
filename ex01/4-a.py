@@ -9,7 +9,9 @@ y_values = [float(y) for y in y_values]
 if len(x_values) != len(y_values) or len(x_values) == 0:
     raise ValueError("Input vectors must have the same length.")
 
-polynomial_degree_n = len(x_values) - 1
+N = int(input(f"Input length (Should be less than {len(x_values)}): "))
+# polynomial_degree_n = len(x_values) - 1
+polynomial_degree_n = N - 1
 
 coeffs = np.polyfit(x_values, y_values, polynomial_degree_n)
 print(f"Coefficients (degree {polynomial_degree_n}): {coeffs}")
