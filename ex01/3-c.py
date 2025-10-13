@@ -19,3 +19,7 @@ print(coeffs)
 
 y_fit = np.polyval(coeffs, 2)
 print(f"y_fit: {y_fit}")
+
+# lagrange form approximation was 4
+# and this code's value was 4.000000000000003
+# so the results were very similar
