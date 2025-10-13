@@ -6,10 +6,14 @@ x_values = [float(x) for x in x_values]
 y_values = input("Enter f values separated by spaces: ").split()
 y_values = [float(y) for y in y_values]
 
-n = int(input("N: "))
+if len(x_values) != len(y_values) or len(x_values) == 0:
+    raise ValueError("Input vectors must have the same length.")
 
-coeffs =np.polyfit(x_values, y_values, n)
-print(coeffs)
+polynomial_degree_n = len(x_values) - 1
 
-y_fit = np.polyval(coeffs, 0)
-print(f"P(0): {y_fit}")
+coeffs = np.polyfit(x_values, y_values, polynomial_degree_n)
+print(f"Coefficients (degree {polynomial_degree_n}): {coeffs}")
+
+p_at_0 = np.polyval(coeffs, 0)
+print(f"P(0): {p_at_0}")
+
