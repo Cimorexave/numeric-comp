@@ -17,6 +17,12 @@ Pb = PA(x) + ((F(3) - 3*F(2) +3*F(1) - F(0)) / 6) * (x) * (x- 1) * (x - 2)
 f_I = sp.integrate(f, (x, 0, 3))
 Pa_I = sp.integrate(Pa, (x, 0, 3))
 Pb_I = sp.integrate(Pb, (x, 0, 3))
+
 print("Real I from 0 to 3:", f_I.evalf())
 print(f"Pa I from 0 to 3: {Pa_I}, Err: {abs(f_I.evalf() - Pa_I)}")
 print(f"Pb I from 0 to 3: {Pb_I}, Err: {abs(f_I.evalf() - Pb_I)}")
+
+# results:
+# Real I from 0 to 3: 1.75095422760175
+# Pa I from 0 to 3: 1.80000000000000, Err: 0.0490457723982543
+# Pb I from 0 to 3: 1.80000000000000, Err: 0.0490457723982545
