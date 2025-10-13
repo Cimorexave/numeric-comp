@@ -1,0 +1,2 @@
+# ignore repeating zip files for uploading
+*.zip
