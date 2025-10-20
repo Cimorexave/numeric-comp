@@ -1,25 +1,21 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import math
 
 def f(x):
     return 1.0 / (4.0 - x**2)
 
-def neville_interpolation(x_points, y_points, x_eval):
-    """
-    Performs polynomial interpolation at a specific point x_eval 
-    using Neville's scheme, returning the interpolated value and the full table.
-    """
+def neville_interpolation(x_points, y_points, x):
+
     n = len(x_points)
     N = np.zeros((n, n))
     N[:, 0] = y_points  
 
     for j in range(1, n):
         for i in range(n - j):
-            xi = x_points[i]        # x-coordinate of the first point used
-            xj = x_points[i + j]    # x-coordinate of the last point used
+            xi = x_points[i]       
+            xj = x_points[i + j]    
             
-            N[i, j] = ((x_eval - xj) * N[i, j - 1] - (x_eval - xi) * N[i + 1, j - 1]) / (xi - xj)
+            N[i, j] = ((x - xj) * N[i, j - 1] - (x - xi) * N[i + 1, j - 1]) / (xi - xj)
 
     # N[0, n-1] is the best accurate interpolated value
     fx = N[0, n - 1]
@@ -47,12 +43,10 @@ max_error_taylor = np.zeros(N_MAX)
 
 for n in N_VALUES:
     # chebyshev nodes
-    k_indices = np.arange(n + 1)
-    cheb_nodes = np.cos((2 * k_indices + 1) * np.pi / (2 * n + 2))
-    
+    cheb_nodes = np.cos((2 * np.arange(n + 1) + 1) * np.pi / (2 * n + 2))
     cheb_f_values = f(cheb_nodes)
     
-    # Calculate Chebyshev Interpolant at 100 evaluation points (I_n^Cheb f(z_j))
+    # Chebyshev Interpolation at 100 different evaluation points
     cheb_interpolated_values = np.zeros(X_EVAL_COUNT)
     for j in range(X_EVAL_COUNT):
         x_eval = TRUE_RANGE[j]
@@ -74,8 +68,8 @@ for n in N_VALUES:
 
 plt.figure(figsize=(10, 6))
 
-plt.semilogy(N_VALUES, max_error_cheb, 'ro-', label='Chebyshev Interpolant')
-plt.semilogy(N_VALUES, max_error_taylor, 'bs--', label='Taylor Polynomial')
+plt.semilogy(N_VALUES, max_error_cheb, 'ro-', label='chebyshev')
+plt.semilogy(N_VALUES, max_error_taylor, 'bs--', label='taylor')
 
 plt.xlabel('n', fontsize=14)
 plt.ylabel('max abs err', fontsize=14)
@@ -84,3 +78,9 @@ plt.legend(fontsize=12)
 plt.grid(True, which="both", ls="--", alpha=0.7)
 plt.show()
 
+# taylor interploation has consistently lower max errors than chebyshev.
+# however you can observe that chebyshev errors are quite consistent no matter where
+# the position of the approximating point. But taylor interpolation has oscillating values
+# that sometimes go to 0 and sometimes grow larger.
+
+# taylor's superiority can be explained that it is a polynomial of degree 2n compared to chebyshev of degree n 
