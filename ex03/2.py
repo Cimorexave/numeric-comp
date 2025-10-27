@@ -66,7 +66,7 @@ for n_a in [10,20,40]:
     y_cheb_plot = lagrange_interpolant(x_plot, x_cheb_a, y_cheb_a)
 
     plt.figure(figsize=(10, 6))
-    plt.plot(x_plot, y_true, 'k', linewidth=3, label='$f(x) = 1/(1+x^2)$ (True Function)')
+    plt.plot(x_plot, y_true, 'k', linewidth=3, label='$f(x) = 1/(1+x^2')
     plt.plot(x_plot, y_unif_plot, 'r--', linewidth=1.5, label='Uniform Interpolant $P_{10}^{\\text{unif}}(x)$')
     plt.plot(x_plot, y_cheb_plot, 'b:', linewidth=2, label='Chebyshev Interpolant $P_{10}^{\\text{Cheb}}(x)$')
     plt.scatter(x_unif_a, y_unif_a, marker='o', s=15, color='r')
@@ -92,12 +92,12 @@ for n in n_values:
     x_unif = generate_nodes(n, 'unif')
     lambda_unif = lebesgue_constant(x_unif)
     lambda_n_unif[n] = lambda_unif
-    print(f"n={n:2}: Lambda_n^unif = {lambda_unif:.2f}")
+    print(f"n={n}: Lambda_n^unif = {lambda_unif:.2f}")
 
     x_cheb = generate_nodes(n, 'cheb')
     lambda_cheb = lebesgue_constant(x_cheb)
     lambda_n_cheb[n] = lambda_cheb
-    print(f"n={n:2}: Lambda_n^Cheb = {lambda_cheb:.2f}")
+    print(f"n={n}: Lambda_n^Cheb = {lambda_cheb:.2f}")
 
 n_list = np.array(n_values)
 lambda_unif_list = np.array([lambda_n_unif[n] for n in n_list])

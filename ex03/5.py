@@ -96,11 +96,8 @@ results['Composite Trapezoidal (N=4)'] = composite_trapezoidal_rule(f, a, b, N=4
 
 print(f"Exact Value I={I_exact:.4f}")
 print("\n" + "="*70)
-print(f"{'Method':<35} | {'Approximation (Q)':>15} | {'Relative Error |I-Q|/|I|':>20}")
+print(f"{'Method'} | {'Approximation (Q)'} | {'Relative Error |I-Q|/|I|'}")
 print("="*70)
-
-# Store original N=3 result under the Composite Simpson name
-results['Composite Simpson (N=3)'] = results.pop("Simpson's 3/8 Rule (N=3)")
 
 for method, Q in results.items():
     error = relative_error(I_exact, Q)

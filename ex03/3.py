@@ -70,8 +70,8 @@ for f_func, I_true, label in FUNCTIONS:
     plt.loglog(h_range, errors, marker='o', linestyle='-', label=label)
 
 plt.title('error vs. $h$ (Composite Trapezoidal Rule)')
-plt.xlabel('Step Size $h$ (Log Scale)')
-plt.ylabel('error $|e|$ (Log Scale)')
+plt.xlabel('Step Size $h$ (Log)')
+plt.ylabel('error $|e|$ (Log)')
 plt.grid(True, which="both", ls="--")
 plt.legend(loc='lower right')
 plt.gca().invert_xaxis()
