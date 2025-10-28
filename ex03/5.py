@@ -21,8 +21,6 @@ def calculate_exact_integral_f():
 
 
 def relative_error(I, Q):
-    """Computes the relative error |I - Q| / |I|"""
-    # Note: I should not be zero here, so no zero division check is strictly needed.
     return np.abs(I - Q) / np.abs(I)
 
 
@@ -56,7 +54,7 @@ def milne_rule(f, a, b):
     h = (b - a) / N
     x = a + np.arange(N + 1) * h
     
-    # Coefficients: 7, 32, 12, 32, 7
+    # Coeffs: 7, 32, 12, 32, 7
     Q = (2 * h) / 45 * (7 * f(x[0]) + 32 * f(x[1]) + 12 * f(x[2]) + 32 * f(x[3]) + 7 * f(x[4]))
     
     return Q
@@ -78,7 +76,7 @@ def simpsons_3_8_rule(f, a, b):
     h = (b - a) / N
     x = a + np.arange(N + 1) * h
     
-    # Coefficients: 1, 3, 3, 1
+    # Coeffs: 1, 3, 3, 1
     Q = (3 * h) / 8 * (f(x[0]) + 3 * f(x[1]) + 3 * f(x[2]) + f(x[3]))
     return Q
 
