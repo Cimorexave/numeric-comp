@@ -28,6 +28,7 @@ def adapt(f, a, b, tau, h_min):
     m = (a + b) / 2.0
     
     # Check for minimal interval length
+    # h = b - a
     if (b - a) < h_min:
         print(f"Warning: Reached h_min={h_min} on [{a:.4f}, {b:.4f}], returning Simpson's value.")
         fa = f(a)
