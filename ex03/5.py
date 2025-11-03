@@ -15,7 +15,7 @@ def calculate_exact_integral_f():
     result = F_x.subs(x, b) - F_x.subs(x, a)
     exact_value = result.evalf() 
     
-    expression_result = result
+    expression_result = F_x
     
     return exact_value
 
