@@ -4,12 +4,11 @@ from numpy.polynomial.legendre import leggauss
 
 def composite_gauss(f, n, L, q):
     """
-    Composite Gauss rule for integration over (0, 1).
-    n: number of Gauss points per subinterval.
+    composite gauss rule for integration over 0 to 1
+    n: number of gauss points per subinterval.
     L: number of subintervals.
     q: parameter for subinterval boundaries.
     """
-    # standard Gaussian points and weights on [-1, 1]
     # x_G : standard points,
     #  w_G : standard weights
     x_G, w_G = leggauss(n)
@@ -36,7 +35,6 @@ def composite_gauss(f, n, L, q):
     return total_integral
 
 def f_c(x):
-    # x_safe = np.where(x == 0, 1e-20, x) -> unnecessary
     return x**0.1 * np.log(x)
 
 
@@ -45,17 +43,14 @@ I_exact = -1.0 / 1.21
 L_values = n_values = np.arange(1, 21) # n = L = 1...20
 q_values = [0.5, 0.15, 0.05]
 
-# store errors for plotting
 error_data = {q: [] for q in q_values}
 
 for q in q_values:
     for n in n_values:
         L = n 
         
-        # approximation
         I_approx = composite_gauss(f_c, n, L, q)
         
-        # absolute error
         error = np.abs(I_approx - I_exact)
         error_data[q].append(error)
 
@@ -66,7 +61,6 @@ plt.figure(figsize=(10, 6))
 for q, errors in error_data.items():
     plt.semilogy(n_values, errors, label=f'q = {q}', marker='o', linestyle='-')
 
-plt.title('gauss quad err vs. $n$ (composite gauss)')
 plt.xlabel('$n = L$ (points count/subintervals)')
 plt.ylabel('abs error $|I_{approx} - I_{exact}|$ (semilogy)')
 plt.legend()
@@ -85,12 +79,12 @@ plt.show()
 fit_results = {}
 
 for q, errors in error_data.items():
-    # make error linear: Y = log(Error), X = n
+    # err = C * (e ** -bn) -> log(err) = log(C) + (-b)n
+    # Y = log(err), X = n
     Y = np.log(errors)
     X = n_values
     
-    # fit Y = m*X + k, where m = -b and k = log(C)
-    # degree of the polynomial is 1 (linear fit)
+    # Y = m*X + k, m = -b, k = log(C)
     m, k = np.polyfit(X, Y, 1)
     
     b_rate = -m
